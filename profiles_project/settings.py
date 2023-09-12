@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',   #  This is the rest framework part of the djangorestframework we acquired
+    'rest_framework.authtoken',   # This particular froamwork/app comes with the rest_framework, but we are specifically adding it to our project.
+    'profiles_api', #  This is the first app we added with the manage.py supplied module.
 ]
 
 MIDDLEWARE = [
