@@ -14,8 +14,8 @@ Vagrant.configure("2") do |config|
  # boxes at https://vagrantcloud.com/search.
  config.vm.box = "ubuntu/bionic64"
  #  config.vm.box_version = "~> 20200304.0.0"
-
- config.vm.network "forwarded_port", guest: 8000, host: 8000
+ config.vm.network "forwarded_port", guest: 8000, host: 8601
+ config.vm.network "forwarded_port", guest: 8000, host: 8080, disabled: true
 
  config.vm.provision "shell", inline: <<-SHELL
    systemctl disable apt-daily.service
