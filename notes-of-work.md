@@ -92,4 +92,10 @@ We get a project that the Django engine can run and that contains a settings.py 
 
 We open the profiles_project and find the settings.py file.   This file supports the configuration of each app in the project.  
 In the settings.py file, we have a defined object called INSTALLED_APPS.  This list of strings identify the object URL of each app included in our project.
-We used the requirements.txt specified external dependency applications.   We have 
+We used the requirements.txt specified external dependency applications.   We have
+
+### We test the app via a development server
+
+We have single command to start the development server in the vagrant virtual box.
+
+python manage.py runserver 0.0.0.0:8000 
