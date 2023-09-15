@@ -32,6 +32,8 @@ https://stackoverflow.com/questions/34817312/how-do-i-remove-a-forwarded-port-in
 
 We establish a start project.   
 
+python -m venv ~/env
+
 ## Recorded actions to get this far.
 
 vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/
@@ -149,3 +151,65 @@ Note, Python evolved in environments where Enterprise systems existed and manage
 This is where the instructor talks about integrating the models that we just made into the project at large.  
 
 We set the user settings in the profiles_project.settings.py file of the project.  
+
+## Migrations
+Another feature that WebObjects, Ruby on Rails, and Python share is the concept of the database migrations.  It may take some research to determine whose technology and champion contributed the concept first.   What is important is the concept itself and how to use it in the language/frameworks in which one is implementing one's application.  
+The first concept is to produce a migration file for the first migration that typically kick starts a database borne application.  
+
+There is a super manage.py that handles these migrations.  We use the command:
+ python  manage.py makemigrations profiles_api
+ Note that this command takes two arguments.  The first makemigrations provides the instructions that our manage.py is to work with.  Manage.py is provided during the creation of our project.  (django_admin startproject ...).  This manage.py provides us this makemigrations facility to connect migrations to the profile_api.   How?
+
+ Well, I am getting some errors during this process.   Where are these coming from and how do I fix this?
+
+ Turns out I forgot to import the following:
+
+ from django.contrib.auth.models import BaseUserManager
+
+ So with this, the
+  python  manage.py makemigrations profiles_api
+  works.
+
+  next we try to migrate
+
+  ### Recorded commands in vagrant Ubuntu
+
+  File "/vagrant/profiles_api/models.py", line 14, in <module>
+   class UserProfileManager(BaseUserManager):
+NameError: name 'BaseUserManager' is not defined
+(env) vagrant@ubuntu-bionic:/vagrant$ python  manage.py makemigrations profiles_api
+Migrations for 'profiles_api':
+ profiles_api/migrations/0001_initial.py
+   - Create model UserProfile
+(env) vagrant@ubuntu-bionic:/vagrant$ python manage.py migrate
+
+### So, what does this do as we try to migrate and manage our new profile_api model?
+
+(env) vagrant@ubuntu-bionic:/vagrant$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, authtoken, contenttypes, profiles_api, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying profiles_api.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying authtoken.0001_initial... OK
+  Applying authtoken.0002_auto_20160226_1747... OK
+  Applying sessions.0001_initial... OK
+(env) vagrant@ubuntu-bionic:/vagrant$
+
+
+### So what now?
