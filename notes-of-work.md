@@ -98,4 +98,54 @@ We used the requirements.txt specified external dependency applications.   We ha
 
 We have single command to start the development server in the vagrant virtual box.
 
-python manage.py runserver 0.0.0.0:8000 
+python manage.py runserver 0.0.0.0:8000
+
+
+# Set up of database
+A weird thing our London based instructor brought up.   So, Django is a middleware or possibly an ORM.   Is this so?   
+
+One thing that I liked about WebObjects is that Enterprise Objects and WebObjects were always two separate Application Program Interface Frameworks.  Sure, they may as well have been joined at the hip.  However, no developer had to use both together.  
+
+One could use Enterprise Objects in any Objective-C project from the inception of Enterprise Objects until about OSX.4.   Come Tiger, Apple moved WebObjects over to Java to gain multi-platform capability in deploying WebObject projects with a premier Object-Relational Machine and stand alone for what ever Web-app the developer made.   They released Core Data as a successor to the Objective-C version of Enterprise Objects to run with native Apple apps.  When the iPhone arrived, Core Data was the native ORM.  Of course, iPhone still depended on WebObjects in so much that every app was a web app.  Then divisions came amongst the Apple leadership.
+
+Java Enterprise Objects could be used with any Java based code.   Naturally, all of the examples entailed WebObjects.   Well, there were Java Direct applications.  Typically, these were Spring or some other UI made products to ensure that the product worked cross platform.  
+
+Now, let us get back to Django.  We have Django Models.   What is that?  
+
+## Example - Create the User Database Model
+Each Django app includes a models.py.   This was created for us when we ran the manage.py startapp profiles_api.  This instruction at the command line produced profiles_api web-app source.  This includes init_py, admin.py, apps.py, tests.py, views.py.   
+
+So, what is going on?  How do we work with this?
+Well the instructor tells us to add some imports.  
+
+
+It is clear that we create a class in models.py.   Why we don't have each class in the model in its own modular file, doesn't seem to be answered.
+
+We do have an subclass declaration of AbstractBaseUser, PermissionsMixin.   These two classes / protocols provide some inherited definitions.   Check out these references:
+https://docs.djangoproject.com/en/4.2/topics/auth/customizing/
+https://testdriven.io/blog/django-custom-user-model/
+https://stackoverflow.com/questions/21514354/abstractuser-vs-abstractbaseuser-in-django
+https://medium.com/@engr.tanveersultan53/abstractuser-vs-abstractbaseuser-in-django-7f231a276988
+
+
+We also need something for connecting to the Django authentication system.   One thing that is smart about using developed frameworks is that a community of developers examine needs and produce commonly needed features as something to be shared.   At least, there goes the thinking.   Making an infrastructure that facilitates this action is another story.  But, the authentication system for DJango seems to be built with shared cloud resources in mind.  Check out these references:
+https://docs.djangoproject.com/en/4.2/topics/auth/customizing/
+https://medium.com/@harshvb7/customizing-the-django-authentication-for-email-4ff2a7a3c65f
+
+## So - how does Python or Django mange the User model?
+One of the things we want out of a prototyping languages is to have the hard work of interfacing with the underlying system's user and authentication managed for us.  We want to use these features to provide a referee to actions the user is allowed to take.  We don't want our app to have to re-invent the User and Authentication management systems.   Those are already a full time occupation.
+https://peps.python.org/pep-0008/
+https://docs.djangoproject.com/en/1.11/ref/models/fields/
+https://docs.djangoproject.com/en/1.11/topics/auth/customizing/#auth-custom-user
+https://docs.djangoproject.com/en/1.11/topics/auth/customizing/#django.contrib.auth.models.BaseUserManager.normalize_email
+
+
+The whole point of creating profiles_api and its models.py with UserProfileManager and UserProfile class is to allow us to augment the Django user and authentication management system.  
+The lecture (https://www.udemy.com/course/django-python/learn/lecture/6945622#content) provides us a means to connect these models to the overall project.   This is good as we typically make our project about something other than user and authentication management.  Reference (https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-AUTH_USER_MODEL)
+
+Note, Python evolved in environments where Enterprise systems existed and managed desktop machines and servers, alike.  
+
+
+This is where the instructor talks about integrating the models that we just made into the project at large.  
+
+We set the user settings in the profiles_project.settings.py file of the project.  
