@@ -213,3 +213,14 @@ Running migrations:
 
 
 ### So what now?
+
+(env) vagrant@ubuntu-bionic:/vagrant$ python manage.py createsuperuser
+Email: bart.betagh@icloud.com
+Name: Bart
+Password:
+Password (again):
+Superuser created successfully.
+(env) vagrant@ubuntu-bionic:/vagrant$
+
+This last bit allowed us to create a super user in the UserProfile model.   So, how do we see this?  
+python manage.py runserver 0.0.0.0:8000 
