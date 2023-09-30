@@ -222,5 +222,22 @@ Password (again):
 Superuser created successfully.
 (env) vagrant@ubuntu-bionic:/vagrant$
 
+python manage.py changepassword Bart
+
 This last bit allowed us to create a super user in the UserProfile model.   So, how do we see this?  
-python manage.py runserver 0.0.0.0:8000 
+python manage.py runserver 0.0.0.0:8000
+
+
+# What is a View Set and how do we use them to facilitate ReST functions
+Are view sets good for data?   I am spoiled to WebObjects and Enterprise Objects have been a companion from day one.  Maybe Swift Objects will incorporate
+
+What are ViewSets?  
+- Takes care of a lot of typical logic for us
+- Perfect for standard database Operations
+- Fastest way to make a database Interface
+
+When to use ViewSets?
+- A simple CRUD interface to your Database
+- A quick and simple API
+- Little to no customization on the logic choices.
+- Working with standard data structures
