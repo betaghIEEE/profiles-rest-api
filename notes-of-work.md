@@ -241,3 +241,33 @@ When to use ViewSets?
 - A quick and simple API
 - Little to no customization on the logic choices.
 - Working with standard data structures
+
+
+
+# Expand from the Basics - Develop Requirements for the examples
+Note imagary that London App Developer shows.   He shows a lock to indicate some measure of security.  He shows cog, message widgets, checklists, and various app widgets.
+
+So if we are developing or documenting a set of requirements, we should take the time to determine how we assemble such a product.  As loosy goosy as Python's prototype language can be, turning anything made with Python into a serious product requires methods that allow caution and care to be applied.
+Also, we should take notes from this example to use other text editors like VS Code, TextMate, etc.  It would be nice to have some editors that behave like a IDE with Python in  mind to trace potential errors.
+So let us use this description  to show how we assemble this example.
+-  Create new profile.
+--  Handle  registration of new Users
+-- Validate profile data
+- Listing existing profiles
+-- Search for profiles
+-- Email and/ or name
+- View specific profiles
+-- Profile  ID
+- Update profile of logged in user
+-- Change name, email, and password
+- Delete profile
+
+For example: our API URLs should exhibit the following behaviors
+- /api/profile  
+--  list all profiles when HTTP GET method is called
+--  create new profile when HTTP POST method is called
+-- if the ID is included in the profile
+--- /api/profile/<profile-id>/
+---- View specific profile details by using the HTTP GET
+---- Update object using HTTP PUT / PATCH
+---- Remove it completely using HTTP DELETE
