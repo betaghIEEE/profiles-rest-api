@@ -9,6 +9,8 @@ from profiles_api import serializers
 from profiles_api import models
 
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken 
+from rest_framework.settings import api_settings
 from profiles_api import permissions
 
 
@@ -115,3 +117,14 @@ class HelloApiView(APIView):
         """Delete an object"""
 
         return Response({'method': 'DELETE'})
+
+
+class UserLoginApiView(ObtainAuthToken):
+   """Handle creating user authentication tokens"""
+   # A big idea here is to make the ObtainAuthToken visible to 
+   #    the Django rest framework assistant pages.
+   # This enables the ObtainAuthToken by adding the render_classes 
+   #    We set the api_settings default render class to the 
+   #    obtain auth token that in turn enables this subclass 
+   #    to connect to the Django admin feature.
+   renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
