@@ -271,3 +271,22 @@ For example: our API URLs should exhibit the following behaviors
 ---- View specific profile details by using the HTTP GET
 ---- Update object using HTTP PUT / PATCH
 ---- Remove it completely using HTTP DELETE
+
+
+
+Make note about the Mod-headers part for Chrome used as a login feature for Python Django, at least as taught for this course.
+We have a property list with 
+name = Authorization
+value = Token 6a26eb16ddac6a9ffd7bf7215e81a42dfe88736b
+
+The value is derived from the token provided in response to a login request.  It would be curious to see how Django might handle other forms of authentication, such Kerberos, x509, etc. 
+These would definately be of greater value, but we should test how Django works.  In my opinion, it isn't much better than old ASP.   Then again, I am biased and spoiled by Apple's WebObjects.   A lot of work went into making NeXT/Apple WebObjects and it provides a lot of behind the scenes actions.
+
+The mod-header plugin for Google Chrome does come in handy to act like a ReSTful client that is using the key-value pair to serve as a login key with a ReST RPC style application.  
+
+
+# Profile Feed API
+  The idea that the instructor of the course has for this exercise is to have a simple blog / feed database and interface.  
+  He proposes a set of actions mapped to ReSTful counter parts:
+
+- 
