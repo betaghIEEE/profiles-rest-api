@@ -80,6 +80,7 @@ A Django project can consist of one or more sub-applications within the project.
 
 
 (env) vagrant@ubuntu-bionic:/vagrant$ django-admin.py startproject profiles_project .
+
 (env) vagrant@ubuntu-bionic:/vagrant$ python manage.py startapp profiles_api
 
 
