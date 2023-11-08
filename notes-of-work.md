@@ -7,7 +7,9 @@ https://python-guide.readthedocs.io/en/latest/dev/virtualenvs/
 Also, it would be helpful to study the vagrant files and their structure.  This project uses the LondonAppDev Vagrant File to start off.
 
 https://gist.github.com/LondonAppDev/199eef145a21587ea866b69d40d28682
+
 It also uses the MIT License.  Eventually, I may need to have legal advice on these licenses for protect me and what ways those protections work.
+
 https://choosealicense.com/licenses/mit/
 LondonAppDev / Python.dockerignore
 
@@ -27,6 +29,7 @@ https://app.vagrantup.com/boxes/search?page=2&provider=&q=ubuntu&sort=downloads&
 https://developer.hashicorp.com/vagrant/vagrant-cloud
 
 Watch out for reloading the vagrant boxes.   The configuration for port-forward might make things messy.  Try the guide from stack overflow:
+
 https://stackoverflow.com/questions/34817312/how-do-i-remove-a-forwarded-port-in-vagrant
 
 
@@ -36,38 +39,53 @@ python -m venv ~/env
 
 ## Recorded actions to get this far.
 
+>vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/
+> activate          activate.fish     easy_install-3.6  pip3              python
+> activate.csh      easy_install      pip               pip3.6            python3
+
 vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/
 activate          activate.fish     easy_install-3.6  pip3              python
 activate.csh      easy_install      pip               pip3.6            python3
-vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/
-activate          activate.fish     easy_install-3.6  pip3              python
-activate.csh      easy_install      pip               pip3.6            python3
+
 vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/activate
+
 (env) vagrant@ubuntu-bionic:/vagrant$ pip  --versopm
 
 Usage:   
   pip <command> [options]
 
 no such option: --versopm
+
 (env) vagrant@ubuntu-bionic:/vagrant$ pip  --version
+
 pip 9.0.1 from /home/vagrant/env/lib/python3.6/site-packages (python 3.6)
+
 (env) vagrant@ubuntu-bionic:/vagrant$ deactivate
+
 vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/activate
+
 (env) vagrant@ubuntu-bionic:/vagrant$ deactivate
+
 vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/activate
+
 (env) vagrant@ubuntu-bionic:/vagrant$ pip install -r requirements.txt
+
 Collecting django==2.2 (from -r requirements.txt (line 1))
   Downloading https://files.pythonhosted.org/packages/54/85/0bef63668fb170888c1a2970ec897d4528d6072f32dee27653381a332642/Django-2.2-py3-none-any.whl (7.4MB)
     100% |████████████████████████████████| 7.5MB 238kB/s
+
 Collecting djangorestframework==3.9.2 (from -r requirements.txt (line 2))
   Downloading https://files.pythonhosted.org/packages/cc/6d/5f225f18d7978d8753c1861368efc62470947003c7f9f9a5cc425fc0689b/djangorestframework-3.9.2-py2.py3-none-any.whl (911kB)
     100% |████████████████████████████████| 921kB 1.7MB/s
+
 Collecting pytz (from django==2.2->-r requirements.txt (line 1))
   Downloading https://files.pythonhosted.org/packages/32/4d/aaf7eff5deb402fd9a24a1449a8119f00d74ae9c2efa79f8ef9994261fc2/pytz-2023.3.post1-py2.py3-none-any.whl (502kB)
     100% |████████████████████████████████| 512kB 2.5MB/s
+
 Collecting sqlparse (from django==2.2->-r requirements.txt (line 1))
   Downloading https://files.pythonhosted.org/packages/98/5a/66d7c9305baa9f11857f247d4ba761402cea75db6058ff850ed7128957b7/sqlparse-0.4.4-py3-none-any.whl (41kB)
     100% |████████████████████████████████| 51kB 9.4MB/s
+
 Installing collected packages: pytz, sqlparse, django, djangorestframework
 Successfully installed django-2.2 djangorestframework-3.9.2 pytz-2023.3.post1 sqlparse-0.4.4
 (env) vagrant@ubuntu-bionic:/vagrant$
