@@ -47,16 +47,16 @@ vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/
 activate          activate.fish     easy_install-3.6  pip3              python
 activate.csh      easy_install      pip               pip3.6            python3
 
-vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/activate
+> vagrant@ubuntu-bionic:/vagrant$ source ~/env/bin/activate
 
-(env) vagrant@ubuntu-bionic:/vagrant$ pip  --versopm
+> (env) vagrant@ubuntu-bionic:/vagrant$ pip  --versopm
 
-Usage:   
+> Usage:   
   pip <command> [options]
 
-no such option: --versopm
+> no such option: --versopm
 
-(env) vagrant@ubuntu-bionic:/vagrant$ pip  --version
+> (env) vagrant@ubuntu-bionic:/vagrant$ pip  --version
 
 pip 9.0.1 from /home/vagrant/env/lib/python3.6/site-packages (python 3.6)
 
@@ -260,7 +260,7 @@ When to use ViewSets?
 - A quick and simple API
 - Little to no customization on the logic choices.
 - Working with standard data structures
-
+\.
 
 
 # Expand from the Basics - Develop Requirements for the examples
@@ -294,9 +294,9 @@ For example: our API URLs should exhibit the following behaviors
 
 
 Make note about the Mod-headers part for Chrome used as a login feature for Python Django, at least as taught for this course.
-We have a property list with 
-name = Authorization
-value = Token 6a26eb16ddac6a9ffd7bf7215e81a42dfe88736b
+> We have a property list with 
+> > name = Authorization
+> > value = Token 6a26eb16ddac6a9ffd7bf7215e81a42dfe88736b
 
 The value is derived from the token provided in response to a login request.  It would be curious to see how Django might handle other forms of authentication, such Kerberos, x509, etc. 
 These would definately be of greater value, but we should test how Django works.  In my opinion, it isn't much better than old ASP.   Then again, I am biased and spoiled by Apple's WebObjects.   A lot of work went into making NeXT/Apple WebObjects and it provides a lot of behind the scenes actions.
@@ -309,3 +309,86 @@ The mod-header plugin for Google Chrome does come in handy to act like a ReSTful
   He proposes a set of actions mapped to ReSTful counter parts:
 
 - 
+##  API URL(s) that we use in for the application
+- We need a default root URL to provide a list of these feeds \n
+/api/feed
+  - We need GET for listing all of the feed items. 
+  - We need a POST (create a feed item for the logged in user)
+- We need a managed feed for specific items
+>   Try /api/feed/<feed_item_id>  
+  - We need a GET for getting the feed item (detailed view)
+  - We need a PUT for updating 
+  - We need a PATCH for updating 
+  - We need a DELETE for removing such an item
+
+
+### Establish a model to produce the "Feed API" 
+
+  > To produce the new model we need to reference the profiles project URL.py module.  In particular, we need the AUTH_USER_MODEL.   Can we use this file to define more "model" locations?   That would be good to know.   
+
+  > The models do require a migration action to produce the new database and associated files.  
+  > Let us try this command sequence:
+
+  >  python manage.py makemigrations
+
+> This process runs a little as follows:
+python manage.py makemigrations
+Migrations for 'profiles_api':
+  profiles_api/migrations/0002_profilefeeditem.py
+    - Create model ProfileFeedItem
+(env) vagrant@ubuntu-bionic:/vagrant$ 
+
+This process creates a ProfileFeedItem model.  
+
+> These actions are succeeded by a call to migrate the migrations files to the database, itself.   What database is Python using?
+
+> python manage.py migrate
+
+> This gives us the  following results:
+> 
+Migrations for 'profiles_api':
+  profiles_api/migrations/0002_profilefeeditem.py
+    - Create model ProfileFeedItem
+(env) vagrant@ubuntu-bionic:/vagrant$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, authtoken, contenttypes, profiles_api, sessions
+Running migrations:
+  Applying profiles_api.0002_profilefeeditem... OK
+
+>  This brings the database up to  0002_profilefeeditem.py 
+
+### Register the model in the Django Admin
+> We make an adjustment in the profiles_api/admin.py module.  This module registers models that we can use with provided Django admin tool.    Django clearly is not the only technology out there that provides such administration tools and support.  
+
+> Do we need to adjust for security reasons later in the apps life cycle?  
+
+> Well, the line we need in the Django package is in the  profiles_api/admin.py module: 
+admin.site.register(models.ProfileFeedItem)
+
+### Create a serializer for the Profile Feed Objects
+Note the provided references in episode 62.   
+
+We make a new class in the profiles_api/admin.py module.   Whether there could have been a folder called admin with each of these classes as their own module is a good question.   It would make these things organized more like other language / framework approaches to the ReSTful apps.
+
+
+### Create ViewSet for the Profile Feed Item
+> We use the fact that the request has the user identification once the tokenizer is active and therefore has the authentication_classes set with a token from the autheniticated user.  We therefore assign the user_profile from the view set's request user.  We connect this to save the serializer.  
+
+> We can also add a route for the Profile Feed Item's viewset. 
+
+> Now we can test our Feed API with what we have.
+
+### Test Feed API
+We can test the Feed API with the authentication token turned on, and then later with it off.
+
+With the token turned on, we can add status text.  Each time, a new feed item is created.  
+
+We can address in the URL the id for the feed item, and manipulate it with PUT and PATCH.
+
+We can delete the feed item while token is on.
+
+We can turn off our authentication token and try to post, and we get an error.  In fact, this is an uncaught exception. 
+
+To fix this we add permissions to the "API" so that we can handle these exceptions.
+
+### Add Permissions to the Feed API
