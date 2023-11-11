@@ -392,3 +392,16 @@ We can turn off our authentication token and try to post, and we get an error.  
 To fix this we add permissions to the "API" so that we can handle these exceptions.
 
 ### Add Permissions to the Feed API
+
+We need the profiles_api/permissions.py module.  This is another fine example of where we might make folders and individual one class in file module notion.   This is to keep one set of permissions in one file to match a class that we are checking.
+
+So, we add into permissions.py something about UpdateOwnStatus.   So, how do we know this class is about providing permissions to feed objects?
+
+We make this assignment in the view module for the UserProfileFeedViewSet class in the profiles_api/views.py module.  
+
+Here we connect the permissions class for UpdateOwnStatus with our view UserProfileFeedSet.   This provides an override to assign permission_classes in the UserProfileFeedViewSet.  We make an assignment to UpdateOwnStatus and IsAuthenticatedOrReadOnly to permission classes.   The idea is to restrict the action if it is an action other than read.  If it is a read, and user is authorized, then the action is authorized.  If user is not authenticated, then the permissions classes deprive the action.  If the action is read-only, this passes.   However, it is not an update action therefore, we have a don't care.  Thus, the return for authorized could return a true?  Is this so?
+
+Thus, we should see the permissions serving to keep the exceptions from going uncaught.
+
+### Restrict view status updates to logged in users
+We can make a restriction to just logged in users by specifying 
